@@ -1,8 +1,14 @@
 /* SPDX-License-Identifier: LGPL-2.1-or-later */
 
 #include <linux/fs.h>
-#include <openssl/evp.h>
-#include <openssl/sha.h>
+#if HAVE_WOLFSSL
+#  include <wolfssl/options.h>
+#  include <wolfssl/openssl/evp.h>
+#  include <wolfssl/openssl/sha.h>
+#else
+#  include <openssl/evp.h>
+#  include <openssl/sha.h>
+#endif
 #include <sys/ioctl.h>
 #include <sys/xattr.h>
 

@@ -12,10 +12,15 @@
 #include <sys/wait.h>
 #include <sysexits.h>
 
-#if HAVE_OPENSSL
-#include <openssl/err.h>
-#include <openssl/pem.h>
-#include <openssl/x509.h>
+#if HAVE_WOLFSSL
+#  include <wolfssl/options.h>
+#  include <wolfssl/openssl/err.h>
+#  include <wolfssl/openssl/pem.h>
+#  include <wolfssl/openssl/x509.h>
+#elif HAVE_OPENSSL
+#  include <openssl/err.h>
+#  include <openssl/pem.h>
+#  include <openssl/x509.h>
 #endif
 
 #include "sd-device.h"

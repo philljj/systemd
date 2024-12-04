@@ -5,7 +5,12 @@
 #error This source file requires DNS-over-TLS to be enabled and OpenSSL to be available.
 #endif
 
-#include <openssl/ssl.h>
+#if HAVE_WOLFSSL
+#  include <wolfssl/options.h>
+#  include <wolfssl/openssl/ssl.h>
+#else
+#  include <openssl/ssl.h>
+#endif
 #include <stdbool.h>
 
 struct DnsTlsManagerData {

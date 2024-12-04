@@ -4,9 +4,16 @@
 #error This source file requires DNS-over-TLS to be enabled and OpenSSL to be available.
 #endif
 
-#include <openssl/bio.h>
-#include <openssl/err.h>
-#include <openssl/x509v3.h>
+#if HAVE_WOLFSSL
+#  include <wolfssl/options.h>
+#  include <wolfssl/openssl/bio.h>
+#  include <wolfssl/openssl/err.h>
+#  include <wolfssl/openssl/x509v3.h>
+#else
+#  include <openssl/bio.h>
+#  include <openssl/err.h>
+#  include <openssl/x509v3.h>
+#endif
 
 #include "io-util.h"
 #include "openssl-util.h"

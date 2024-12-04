@@ -1,7 +1,12 @@
 /* SPDX-License-Identifier: LGPL-2.1-or-later */
 #pragma once
 
-#include <openssl/asn1t.h>
+#if HAVE_WOLFSSL
+#  include <wolfssl/options.h>
+#  include <wolfssl/openssl/asn1t.h>
+#else
+#  include <openssl/asn1t.h>
+#endif
 
 #include "macro.h"
 

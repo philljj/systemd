@@ -1,6 +1,11 @@
 /* SPDX-License-Identifier: LGPL-2.1-or-later */
 
-#include <openssl/pem.h>
+#if HAVE_WOLFSSL
+#  include <wolfssl/options.h>
+#  include <wolfssl/openssl/pem.h>
+#else
+#  include <openssl/pem.h>
+#endif
 
 #include "fd-util.h"
 #include "fileio.h"

@@ -10,8 +10,8 @@
 #include "format-table.h"
 #include "io-util.h"
 #include "memory-util.h"
-#if HAVE_OPENSSL
-#include "openssl-util.h"
+#if HAVE_OPENSSL || HAVE_WOLFSSL
+#  include "openssl-util.h"
 #endif
 #include "pkcs11-util.h"
 #include "random-util.h"

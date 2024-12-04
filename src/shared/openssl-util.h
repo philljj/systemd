@@ -29,27 +29,42 @@ int parse_openssl_key_source_argument(const char *argument, char **private_key_s
 
 #define X509_FINGERPRINT_SIZE SHA256_DIGEST_SIZE
 
-#if HAVE_OPENSSL
-#  include <openssl/bio.h>
-#  include <openssl/bn.h>
-#  include <openssl/crypto.h>
-#  include <openssl/err.h>
-#  include <openssl/evp.h>
-#  include <openssl/opensslv.h>
-#  include <openssl/pkcs7.h>
-#  include <openssl/ssl.h>
-#  include <openssl/ui.h>
-#  include <openssl/x509v3.h>
-#  ifndef OPENSSL_VERSION_MAJOR
-/* OPENSSL_VERSION_MAJOR macro was added in OpenSSL 3. Thus, if it doesn't exist,  we must be before OpenSSL 3. */
+#if HAVE_OPENSSL || HAVE_WOLFSSL
+#  if HAVE_WOLFSSL
+#    include <wolfssl/options.h>
+#    include <wolfssl/openssl/bio.h>
+#    include <wolfssl/openssl/bn.h>
+#    include <wolfssl/openssl/crypto.h>
+#    include <wolfssl/openssl/err.h>
+#    include <wolfssl/openssl/evp.h>
+#    include <wolfssl/openssl/opensslv.h>
+#    include <wolfssl/openssl/pkcs7.h>
+#    include <wolfssl/openssl/ssl.h>
+#    include <wolfssl/openssl/ui.h>
+#    include <wolfssl/openssl/x509v3.h>
 #    define OPENSSL_VERSION_MAJOR 1
-#  endif
-#  if OPENSSL_VERSION_MAJOR >= 3
-#    include <openssl/core_names.h>
-#    include <openssl/kdf.h>
-#    include <openssl/param_build.h>
-#    include <openssl/provider.h>
-#    include <openssl/store.h>
+#  else
+#    include <openssl/bio.h>
+#    include <openssl/bn.h>
+#    include <openssl/crypto.h>
+#    include <openssl/err.h>
+#    include <openssl/evp.h>
+#    include <openssl/opensslv.h>
+#    include <openssl/pkcs7.h>
+#    include <openssl/ssl.h>
+#    include <openssl/ui.h>
+#    include <openssl/x509v3.h>
+#    ifndef OPENSSL_VERSION_MAJOR
+/*   OPENSSL_VERSION_MAJOR macro was added in OpenSSL 3. Thus, if it doesn't exist,  we must be before OpenSSL 3. */
+#      define OPENSSL_VERSION_MAJOR 1
+#    endif
+#    if OPENSSL_VERSION_MAJOR >= 3
+#      include <openssl/core_names.h>
+#      include <openssl/kdf.h>
+#      include <openssl/param_build.h>
+#      include <openssl/provider.h>
+#      include <openssl/store.h>
+#    endif
 #  endif
 
 DEFINE_TRIVIAL_CLEANUP_FUNC_FULL_MACRO(void*, OPENSSL_free, NULL);
@@ -180,10 +195,12 @@ DEFINE_TRIVIAL_CLEANUP_FUNC_FULL(EVP_PKEY*, EVP_PKEY_free, NULL);
 DEFINE_TRIVIAL_CLEANUP_FUNC_FULL(ASN1_TYPE*, ASN1_TYPE_free, NULL);
 DEFINE_TRIVIAL_CLEANUP_FUNC_FULL(ASN1_STRING*, ASN1_STRING_free, NULL);
 
+#if !HAVE_WOLFSSL
 struct OpenSSLAskPasswordUI {
         AskPasswordRequest request;
         UI_METHOD *method;
 };
+#endif
 
 OpenSSLAskPasswordUI* openssl_ask_password_ui_free(OpenSSLAskPasswordUI *ui);
 

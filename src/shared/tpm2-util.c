@@ -39,7 +39,10 @@
 #include "tpm2-util.h"
 #include "virt.h"
 
-#if HAVE_OPENSSL
+#if HAVE_WOLFSSL
+#  include <wolfssl/options.h>
+#  include <wolfssl/openssl/hmac.h>
+#else
 #  include <openssl/hmac.h>
 #endif
 

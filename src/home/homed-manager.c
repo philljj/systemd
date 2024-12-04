@@ -4,7 +4,12 @@
 #include <linux/fs.h>
 #include <linux/magic.h>
 #include <math.h>
-#include <openssl/pem.h>
+#if HAVE_WOLFSSL
+#  include <wolfssl/options.h>
+#  include <wolfssl/openssl/pem.h>
+#else
+#  include <openssl/pem.h>
+#endif
 #include <pwd.h>
 #include <sys/ioctl.h>
 #include <sys/quota.h>

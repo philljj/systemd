@@ -2,7 +2,12 @@
 
 #include <getopt.h>
 #include <math.h>
-#include <openssl/evp.h>
+#if HAVE_WOLFSSL
+#  include <wolfssl/options.h>
+#  include <wolfssl/openssl/evp.h>
+#else
+#  include <openssl/evp.h>
+#endif
 #include <sys/file.h>
 
 #include "sd-device.h"

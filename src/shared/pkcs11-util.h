@@ -1,10 +1,15 @@
 /* SPDX-License-Identifier: LGPL-2.1-or-later */
 #pragma once
 
-#if HAVE_OPENSSL
+#if HAVE_WOLFSSL
+#  include <wolfssl/options.h>
+#  include <wolfssl/openssl/evp.h>
+#  include <wolfssl/openssl/x509.h>
+#else
 #  include <openssl/evp.h>
 #  include <openssl/x509.h>
 #endif
+
 #include <stdbool.h>
 
 #if HAVE_P11KIT

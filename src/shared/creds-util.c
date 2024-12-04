@@ -2,8 +2,11 @@
 
 #include <sys/file.h>
 
-#if HAVE_OPENSSL
-#include <openssl/err.h>
+#if HAVE_WOLFSSL
+#  include <wolfssl/options.h>
+#  include <wolfssl/openssl/err.h>
+#elif HAVE_OPENSSL
+#  include <openssl/err.h>
 #endif
 
 #include "sd-id128.h"
