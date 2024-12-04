@@ -439,6 +439,12 @@ option('openssl', type : 'feature', deprecated : { 'true' : 'enabled', 'false' :
        description : 'openssl support')
 option('wolfssl', type : 'feature', deprecated : { 'true' : 'enabled', 'false' : 'disabled' },
        description : 'wolfssl support')
+option('wolflib', type : 'string',
+       description : 'wolfssl lib path',
+       value : '/usr/local/lib/')
+option('wolfinc', type : 'string',
+       description : 'wolfssl include path',
+       value : '/usr/local/include/wolfssl/')
 option('cryptolib', type : 'combo', choices : ['auto', 'openssl', 'gcrypt'],
        description : 'whether to use openssl or gcrypt where both are supported')
 option('p11kit', type : 'feature', deprecated : { 'true' : 'enabled', 'false' : 'disabled' },

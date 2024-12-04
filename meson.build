@@ -1376,9 +1376,9 @@ libopenssl = dependency('openssl',
                         required : get_option('openssl'))
 conf.set10('HAVE_OPENSSL', libopenssl.found())
 
-libwolfssl = dependency('wolfssl',
-                        required : get_option('wolfssl'))
+libwolfssl = cc.find_library('wolfssl', dirs: get_option('wolflib'))
 conf.set10('HAVE_WOLFSSL', libwolfssl.found())
+# include_directories:include_directories(get_option('wolfinc')))
 
 libp11kit = dependency('p11-kit-1',
                        version : '>= 0.23.3',
